@@ -1,6 +1,6 @@
+import { Metadata } from "next"; // ← Lägg till denna import
 import { fetchQuery } from "convex/nextjs";
 import { api } from "@/convex/_generated/api";
-import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { FiClock, FiCalendar, FiTag, FiArrowLeft } from "react-icons/fi";
 import Link from "next/link";
@@ -50,7 +50,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
     return (
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 max-w-4xl">
-        {/* Tillbaka knapp */}
         <Link
           href="/blog"
           className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 mb-8 transition-colors"
@@ -59,7 +58,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           Tillbaka till bloggen
         </Link>
 
-        {/* Header */}
         <header className="mb-8">
           <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400 mb-4">
             <span className="flex items-center gap-1">
@@ -76,7 +74,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             {blog.title}
           </h1>
 
-          {/* Tags */}
           <div className="flex flex-wrap gap-2">
             {blog.tags.map((tag: string) => (
               <span
@@ -90,7 +87,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
         </header>
 
-        {/* Cover Image */}
         {blog.coverImage && (
           <div className="mb-8 rounded-xl overflow-hidden">
             <img
@@ -101,7 +97,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
         )}
 
-        {/* Content */}
         <article className="prose prose-lg dark:prose-invert max-w-none">
           {blog.content.split("\n").map((paragraph: string, index: number) => {
             if (paragraph.startsWith("# ")) {

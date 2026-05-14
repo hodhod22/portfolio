@@ -1,3 +1,4 @@
+import { Metadata } from "next"; // ← Lägg till denna import
 import { fetchQuery } from "convex/nextjs";
 import { api } from "@/convex/_generated/api";
 import Hero from "@/components/Hero";
@@ -8,15 +9,19 @@ import CVButton from "@/components/CVButton";
 import ProjectCard from "@/components/ProjectCard";
 import { Doc } from "@/convex/_generated/dataModel";
 
+export const metadata: Metadata = {
+  title: "Min Portfolio | Frontend-utvecklare",
+  description:
+    "Portfolio för en frontend-utvecklare specialiserad på Next.js, TypeScript och modern webbutveckling.",
+};
+
 export default async function Home() {
-  // Använd fetchQuery istället för preloadQuery
   const featuredProjects = await fetchQuery(api.projects.getFeatured);
 
   return (
     <>
       <Hero />
 
-      {/* CV Button Section */}
       <section className="text-center py-12 bg-linear-to-r from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20">
         <div className="container mx-auto px-4">
           <CVButton />
@@ -25,7 +30,6 @@ export default async function Home() {
 
       <TechStack />
 
-      {/* Featured Projects Section */}
       <section className="py-20 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -37,7 +41,6 @@ export default async function Home() {
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* slice fungerar nu eftersom featuredProjects är en array */}
             {featuredProjects.slice(0, 3).map((project: Doc<"projects">) => (
               <ProjectCard
                 key={project._id}

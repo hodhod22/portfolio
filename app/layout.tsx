@@ -1,3 +1,4 @@
+import { Metadata } from "next"; // ← Lägg till denna import
 import { ClerkProvider } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -5,7 +6,15 @@ import { Providers } from "./providers";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ChatWidget from "@/components/ChatWidget";
+
 const inter = Inter({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  // ← Nu fungerar Metadata
+  title: "Min Portfolio | Frontend-utvecklare",
+  description:
+    "Portfolio för en frontend-utvecklare specialiserad på Next.js, TypeScript och modern webbutveckling.",
+};
 
 export default function RootLayout({
   children,
@@ -14,8 +23,6 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider afterSignOutUrl="/">
-      {" "}
-      {/* ← Lägg till här */}
       <html lang="sv" suppressHydrationWarning>
         <body className={inter.className}>
           <Providers>
@@ -24,8 +31,8 @@ export default function RootLayout({
               <main className="flex-1">{children}</main>
               <Footer />
             </div>
+            <ChatWidget />
           </Providers>
-          <ChatWidget /> {/* ← Lägg till här */}
         </body>
       </html>
     </ClerkProvider>

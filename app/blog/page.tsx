@@ -1,8 +1,8 @@
+import { Metadata } from "next"; // ← Lägg till denna import
 import { fetchQuery } from "convex/nextjs";
 import { api } from "@/convex/_generated/api";
 import BlogCard from "@/components/BlogCard";
 import { Doc } from "@/convex/_generated/dataModel";
-import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Blogg | Min Portfolio",
@@ -10,12 +10,10 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogPage() {
-  // fetchQuery returnerar datan direkt, INTE ett Preloaded-objekt
   const blogs = await fetchQuery(api.blog.getAllPublished);
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      {/* Header */}
       <div className="text-center mb-12">
         <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
           Min Blogg
@@ -26,7 +24,6 @@ export default async function BlogPage() {
         </p>
       </div>
 
-      {/* Blog Grid - map fungerar nu eftersom blogs är en array */}
       {blogs.length === 0 ? (
         <div className="text-center py-20">
           <p className="text-gray-500 dark:text-gray-400">
