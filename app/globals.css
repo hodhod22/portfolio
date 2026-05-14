@@ -1,26 +1,108 @@
+/* app/globals.css - Tailwind CSS v4 korrekt syntax */
+
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Definiera custom tema */
+@theme {
+  /* Primary färger */
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-300: #93c5fd;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+  --color-primary-800: #1e40af;
+  --color-primary-900: #1e3a8a;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Secondary färger */
+  --color-secondary-500: #8b5cf6;
+  --color-secondary-600: #7c3aed;
+  --color-secondary-700: #6d28d9;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Animationer */
+  --animate-fade-in: fade-in 0.5s ease-in-out;
+  --animate-slide-up: slide-up 0.3s ease-out;
+  --animate-spin-slow: spin 3s linear infinite;
+
+  /* Keyframes */
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-up {
+    0% {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Dark mode - Tailwind v4 använder @custom-variant */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Globala basstilar */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-image: linear-gradient(to bottom right, var(--color-slate-50), var(--color-slate-100));
+    color: var(--color-slate-900);
+  }
+
+  .dark body {
+    background-image: linear-gradient(to bottom right, var(--color-slate-950), var(--color-slate-900));
+    color: var(--color-slate-100);
+  }
+}
+
+/* Custom utilities med @utility */
+@utility container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  @media (width >=640px) {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  @media (width >=1024px) {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@utility text-gradient {
+  background-image: linear-gradient(to right, var(--color-primary-600), var(--color-secondary-500));
+  background-clip: text;
+  color: transparent;
+}
+
+@utility bg-gradient-primary {
+  background-image: linear-gradient(135deg, var(--color-primary-600), var(--color-secondary-600));
+}
+
+@utility glass-effect {
+  background-color: rgb(255 255 255 / 0.8);
+  backdrop-filter: blur(12px);
+
+  .dark & {
+    background-color: rgb(15 23 42 / 0.8);
+  }
 }
